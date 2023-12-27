@@ -3,13 +3,13 @@ import { useDispatch } from 'react-redux';
 
 import './App.scss';
 import Layout from './components/Layout/Layout';
-import { fetchRockets } from './redux/rockets/rocketsSlice';
+import { fetchDragon } from './redux/dragon/dragonSlice';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchRockets());
+    dispatch(fetchDragon());
   }, [dispatch]);
 
   return (
