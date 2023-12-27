@@ -1,0 +1,18 @@
+.dragon-container ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.dragon-container ul li {
+  border: 1px solid #c0c0c0;
+  border-bottom: none;
+  padding: 2%;
+}
+
+.dragon-container ul li:first-child {
+  border-top: 1px solid #c0c0c0;
+}
+
+.dragon-container ul li:last-child {
+  border-bottom: 1px solid #c0c0c0;
+}
