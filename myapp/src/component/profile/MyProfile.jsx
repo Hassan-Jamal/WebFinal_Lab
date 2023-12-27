@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux';
 
 import './MyProfile.scss';
 import MissionProfile from './missions/MissionProfile';
-import RocketProfile from './rockets/DragonProfile';
+import DragonProfile from './dragon/DragonProfile';
 
 const MyProfile = () => {
-  const { rockets } = useSelector((store) => store.rockets);
+  const { dragon } = useSelector((store) => store.dragon);
   // console.log(dragon)
-  const rocketsStatus = rockets.filter((dragon) => dragon.reserved);
+  const dragonStatus = dragon.filter((dragon) => dragon.reserved);
 
   return (
     <div className="profile-container">
@@ -20,17 +20,17 @@ const MyProfile = () => {
         <MissionProfile />
       </section>
 
-      {/* show rockets on profile page */}
+      {/* show dragon on profile page */}
       <section className="dragon-container">
         <div className="title">
-          My Rockets
+          My Dragons
         </div>
-        {rocketsStatus.length === 0 ? (
-          <p>You have not reserved any rocket.</p>
-        ) : (rocketsStatus.length > 0 && (
+        {dragonStatus.length === 0 ? (
+          <p>You have not reserved any dragon.</p>
+        ) : (dragonStatus.length > 0 && (
           <ul className="reserved-dragon-list">
-            {rocketsStatus.map((dragon) => (
-              <RocketProfile key={dragon.id} dragon={dragon} />
+            {dragonStatus.map((dragon) => (
+              <DragonProfile key={dragon.id} dragon={dragon} />
             ))}
           </ul>
         ))}
