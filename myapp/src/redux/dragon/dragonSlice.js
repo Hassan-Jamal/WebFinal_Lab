@@ -1,17 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const url = 'https://api.spacexdata.com/v4/rockets';
+const url = 'https://api.spacexdata.com/v4/dragons';
 
 const initialState = {
-  rockets: [],
+  dragon: [],
   isLoading: false,
   error: null,
-  reservedRockets: [],
+  reservedDragon: [],
 };
 
 // fetch books from the books API
-export const fetchRockets = createAsyncThunk('rockets/fetchRockes', async (_, { rejectWithValue }) => {
+export const fetchDragon = createAsyncThunk('dragon/fetchRockes', async (_, { rejectWithValue }) => {
   try {
     const response = await axios.get(url);
     return response.data;
@@ -21,62 +21,62 @@ export const fetchRockets = createAsyncThunk('rockets/fetchRockes', async (_, { 
 });
 
 // create slice
-const rocketsSlice = createSlice({
-  name: 'rockets',
+const dragonSlice = createSlice({
+  name: 'dragon',
   initialState,
   reducers: {
-    reserveRocket: (state, { payload }) => {
-      const { rockets } = state;
-      const updatedRockets = rockets.map((rocket) => {
-        if (rocket.id === payload) {
-          return { ...rocket, reserved: true };
+    reserveDragon: (state, { payload }) => {
+      const { dragon } = state;
+      const updatedDragon = dragon.map((dragon) => {
+        if (dragon.id === payload) {
+          return { ...dragon, reserved: true };
         }
-        return rocket;
+        return dragon;
       });
-      state.rockets = updatedRockets;
-      state.reservedRockets = updatedRockets.filter((rocket) => rocket.reserved);
+      state.dragon = updatedDragon;
+      state.reservedDragon = updatedDragon.filter((dragon) => dragon.reserved);
     },
     cancelReserved: (state, { payload }) => {
-      const { rockets } = state;
-      const updatedRockets = rockets.map((rocket) => {
-        if (rocket.id === payload) {
-          return { ...rocket, reserved: false };
+      const { dragon } = state;
+      const updatedDragon = dragon.map((dragon) => {
+        if (dragon.id === payload) {
+          return { ...dragon, reserved: false };
         }
-        return rocket;
+        return dragon;
       });
-      state.rockets = updatedRockets;
-      state.reservedRockets = state.reservedRockets.filter((rocket) => rocket.id !== payload);
+      state.dragon = updatedDragon;
+      state.reservedDragon = state.reservedDragon.filter((dragon) => dragon.id !== payload);
     },
   },
   // handle states of promises
   extraReducers: (builder) => {
     builder
       // fetch books
-      .addCase(fetchRockets.pending, (state) => {
+      .addCase(fetchDragon.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchRockets.fulfilled, (state, { payload }) => {
+      .addCase(fetchDragon.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         const result = [];
 
-        payload.forEach((rocket) => {
-          const newRocket = {
-            id: rocket.id,
-            rocketName: rocket.name,
-            rocketDescription: rocket.description,
-            flickrImages: rocket.flickr_images,
+        payload.forEach((dragon) => {
+          const newDragon= {
+            id: dragon.id,
+            dragonName: dragon.name,
+            dragonDescription: dragon.description,
+            flickrImages: dragon.flickr_images,
           };
-          result.push(newRocket);
+          result.push(newDragon);
         });
 
-        state.rockets = result;
+        state.dragon = result;
       })
-      .addCase(fetchRockets.rejected, (state, action) => {
+      .addCase(fetchDragon.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });
   },
 });
 
-export const { reserveRocket, cancelReserved } = rocketsSlice.actions;
-export default rocketsSlice.reducer;
+export const { reserveDragon, cancelReserved } = dragonSlice.actions;
+export default dragonSlice.reducer;
